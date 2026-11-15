@@ -20,12 +20,7 @@ The WEAR dataset contains outdoor recordings from 22 source participants and def
 
 The official metric is macro-F1 across the 19 classes. We used five participant-grouped source folds for graph development and also computed a diagnostic on source participants with IDs of at least 14. The paired graph experiments inherit upstream stacking and activity evidence. Their scores measure relative changes under this benchmark and do not constitute a fully nested estimate of the deployed ensemble.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{figures/inertial_window.pdf}
-\caption{Measured acceleration across three axes for one supplied test window.}
-\label{fig:window}
-\end{figure}
+
 
 \section{Method}
 \begin{figure}[tb]
@@ -33,6 +28,13 @@ The official metric is macro-F1 across the 19 classes. We used five participant-
 \includegraphics[width=\columnwidth]{figures/pipeline.pdf}
 \caption{Two branches produce activity probabilities and a participant-specific graph. The bounded update transfers the graph's effect onto the ensemble.}
 \label{fig:pipeline}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/inertial_window.pdf}
+\caption{Measured acceleration across three axes for one supplied test window.}
+\label{fig:window}
 \end{figure}
 Figure~\ref{fig:pipeline} summarizes the inference pipeline. The measured input in Figure~\ref{fig:window} illustrates the inertial branch.
 \subsection{Multimodal activity ensemble}
