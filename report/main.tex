@@ -49,12 +49,16 @@ The final LightGBM LambdaRank models use 120 features per pair, comprising 115 r
 The edge score combines the learned same-bout score and same-label score with weights of 2 each and the forward and backward matched-edge channels with weights of 2.5 each. This preserves soft links when exact temporal adjacency is uncertain. We gate the edge score by \(0.25+0.75a_{ij}\), where \(a_{ij}\) is the activity-posterior affinity, then use the original decoder with top-ten neighbors, squared and symmetrized weights, 15 propagation steps, and a propagation coefficient of 0.9. The decoder retains participant-level non-null priors.
 
 \subsection{Bounded transfer to the ensemble}
-Let \(Q_{0,f}, Q_{m,f}, Q_{b,f}\) denote fold-\(f\) posteriors decoded from the original, intermediate motion, and final bidirectional graphs using identical activity evidence. Define \(D(X,Y)=\mathrm{clip}(\log X-\log Y,-2,2)\), with posterior probabilities floored at \(10^{-7}\). We update the log scores of the already motion-corrected parent prediction by
+Let \(Q_{0,f}, Q_{m,f}, Q_{b,f}\) denote the posteriors for fold \(f\), decoded from the original, intermediate motion, and final bidirectional graphs, respectively. Each graph uses identical activity evidence. Posterior probabilities are floored at \(10^{-7}\) before taking logarithms. We define
 \[
-\frac{1}{5}\sum_f
-  [D(Q_{b,f},Q_{0,f})-D(Q_{m,f},Q_{0,f})].
+D(X,Y)=\mathrm{clip}(\log X-\log Y,-2,2).
 \]
-The subtraction prevents double counting the intermediate motion correction. The largest adjusted score determines the submitted label.
+The log scores of the parent prediction already include the motion correction. We add the following average over the five folds:
+\[
+\frac{1}{5}\sum_{f=1}^{5}
+\left[D(Q_{b,f},Q_{0,f})-D(Q_{m,f},Q_{0,f})\right].
+\]
+Subtracting the intermediate graph effect prevents double counting the motion correction. The largest adjusted score determines the submitted label.
 
 \section{Results}
 \begin{table}[t]
