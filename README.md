@@ -23,3 +23,7 @@ The source result is a paired graph-development benchmark. Final private macro-F
 The repository contains derived benchmark results and the exact submitted predictions. Obtain the original inertial and video features from the competition's Data tab. The raw recordings and trained checkpoints are required to rerun training and are distributed separately from this repository.
 
 Run 'python scripts/make_figures.py --inertial PATH_TO/test_inertial_data.npy' with NumPy and Matplotlib to reproduce the report figures. From 'report/', run 'latexmk -pdf main.tex' with ACM acmart installed. The supplied PDF is a separately rendered review copy.
+
+## AI assistance
+
+AI tools assisted with drafting the report and with developing and refining the solution.
