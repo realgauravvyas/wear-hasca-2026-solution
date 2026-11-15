@@ -12,7 +12,7 @@ Recognizing outdoor exercise activities from shuffled one-second windows is diff
 \section{Introduction}
 A single second may capture a similar pose or motion phase in several activities. Although the test windows are shuffled, their observed signals can provide evidence that some windows are temporally adjacent or belong to the same exercise bout. We use that evidence to refine multimodal activity predictions. The main contribution is to rank candidate successors and predecessors independently and to enforce one-to-one assignments before propagating activity probabilities.
 
-% Pipeline overview and measured results are included as raster figures.
+% Figures use vector PDFs.
 
 
 \section{Data and Evaluation}
@@ -27,6 +27,7 @@ The official metric is macro-F1 across the 19 classes. We used five participant-
 \centering
 \includegraphics[width=\columnwidth]{figures/pipeline.pdf}
 \caption{Two branches produce activity probabilities and a participant-specific graph. The bounded update transfers the graph's effect onto the ensemble.}
+\Description{Inertial and video features feed an activity ensemble and a motion branch. Directional ranking and one-to-one matching construct graph links. Graph propagation combines both branches to update activity predictions.}
 \label{fig:pipeline}
 \end{figure}
 
@@ -34,6 +35,7 @@ The official metric is macro-F1 across the 19 classes. We used five participant-
 \centering
 \includegraphics[width=\columnwidth]{figures/inertial_window.pdf}
 \caption{Measured acceleration across three axes for one supplied test window.}
+\Description{Three acceleration traces over a one-second test window, sampled at 50 Hz.}
 \label{fig:window}
 \end{figure}
 Figure~\ref{fig:pipeline} summarizes the inference pipeline. The measured input in Figure~\ref{fig:window} illustrates the inertial branch.
@@ -86,15 +88,17 @@ The selected Kaggle file was \texttt{c173\_bidir\_consensus\_core.csv}, submissi
 \centering
 \includegraphics[width=\columnwidth]{figures/benchmark.pdf}
 \caption{Macro-F1 gain relative to the parent ensemble, shown separately for the source benchmark and public leaderboard.}
+\Description{Source and public macro-F1 improvements across six configurations. The final public gain over the parent ensemble is 0.00210.}
 \label{fig:scores}
 \end{figure}
 
 \section{Data and Code Availability}
-The \href{https://www.kaggle.com/competitions/3rd-wear-dataset-challenge-hasca-2026/data}{Kaggle data page} provides the accelerometer windows, video features, metadata, and label mapping. The accompanying repository contains the exact submitted predictions, benchmark scores, figure-generation code, and the matching implementation. The \href{https://www.kaggle.com/competitions/3rd-wear-dataset-challenge-hasca-2026/leaderboard}{Kaggle leaderboard} lists competition results. See Figure~\ref{fig:scores} for the measured changes across configurations.
+The \href{https://www.kaggle.com/competitions/3rd-wear-dataset-challenge-hasca-2026/data}{Kaggle data page} provides the accelerometer windows, video features, metadata, and label mapping. The \href{https://github.com/realgauravvyas/wear-hasca-2026-solution}{solution repository} contains the exact submitted predictions, benchmark scores, figure-generation code, and the matching implementation. The \href{https://www.kaggle.com/competitions/3rd-wear-dataset-challenge-hasca-2026/leaderboard}{Kaggle leaderboard} lists competition results. See Figure~\ref{fig:scores} for the measured changes across configurations.
 
 \section{Limitations and Conclusion}
 The solution uses unlabeled windows from the same participant at inference, so its results describe batch prediction. Repeated movements can create plausible but incorrect matches, and missing intermediate windows limit the recoverable temporal structure. The four test participants and the development use of public leaderboard feedback limit the scope of generalization claims. Within the recorded development comparisons, bidirectional matching improved the graph refinement while preserving the underlying multimodal ensemble.
 
+\clearpage
 \begin{thebibliography}{2}
 \bibitem{wear} Marius Bock et al. WEAR: An Outdoor Sports Dataset for Wearable and Egocentric Activity Recognition. arXiv:2304.05088. \url{https://arxiv.org/abs/2304.05088}
 \bibitem{challenge} Marius Bock et al. 2026. 3rd WEAR Dataset Challenge. \url{https://mariusbock.github.io/wear/challenge.html}

@@ -15,7 +15,7 @@ plt.rcParams.update({"font.size": 10, "axes.spines.top": False, "axes.spines.rig
 navy, teal, gold = "#17365a", "#007e83", "#ad6220"
 
 from matplotlib.patches import FancyBboxPatch
-fig, ax = plt.subplots(figsize=(3.35, 3.3))
+fig, ax = plt.subplots(figsize=(3.35, 2.65))
 ax.set(xlim=(0, 10), ylim=(0, 10))
 ax.axis("off")
 def box(x, y, width, height, label, fill):
@@ -41,7 +41,7 @@ plt.close(fig)
 
 x = np.load(args.inertial, mmap_mode="r")[0]
 assert x.shape == (50,3) and np.isfinite(x).all()
-fig, ax = plt.subplots(figsize=(4.3, 2.45),layout="constrained")
+fig, ax = plt.subplots(figsize=(4.3, 1.95),layout="constrained")
 for axis,color in enumerate([navy,teal,gold]):
     ax.plot(np.arange(50)/50,x[:,axis],label="xyz"[axis],color=color,lw=1.5)
 ax.set(xlabel="Time within window (s)",ylabel="Acceleration (dataset units)")
@@ -53,7 +53,7 @@ plt.close(fig)
 
 with (root/"results"/"scores.csv").open() as stream:
     rows=list(csv.DictReader(stream))
-fig, ax = plt.subplots(figsize=(4.3,2.6),layout="constrained")
+fig, ax = plt.subplots(figsize=(4.3,2.15),layout="constrained")
 for key,label,color in [("source_macro_f1","Source benchmark",navy),("public_macro_f1","Kaggle public",teal)]:
     scores=np.array([float(row[key]) for row in rows])
     ax.plot(range(len(rows)),1000*(scores-scores[0]),"o-",label=label,color=color,lw=1.5)
