@@ -1,0 +1,24 @@
+% Local build wrapper (not needed on Overleaf, where main.tex compiles directly).
+%
+% Some TeX installations ship a `figureversions` package (loaded by acmart's fonts)
+% that is newer than their LaTeX kernel and calls an expl3 function the kernel
+% does not have yet. The function is defined here if it is missing, so that
+% main.tex stays exactly as the organisers' template expects it.
+%
+%   pdflatex -jobname=main build_local.tex && bibtex main
+%   pdflatex -jobname=main build_local.tex && pdflatex -jobname=main build_local.tex
+\ExplSyntaxOn
+\cs_if_exist:NF \prop_gput_if_not_in:Nnn
+  {
+    \cs_new_protected:Npn \prop_gput_if_not_in:Nnn #1#2#3
+      { \prop_if_in:NnF #1 {#2} { \prop_gput:Nnn #1 {#2} {#3} } }
+    \cs_generate_variant:Nn \prop_gput_if_not_in:Nnn { NnV , Nnv , NVn , NVV , cnn , cnV }
+  }
+\cs_if_exist:NF \prop_put_if_not_in:Nnn
+  {
+    \cs_new_protected:Npn \prop_put_if_not_in:Nnn #1#2#3
+      { \prop_if_in:NnF #1 {#2} { \prop_put:Nnn #1 {#2} {#3} } }
+    \cs_generate_variant:Nn \prop_put_if_not_in:Nnn { NnV , NVn , NVV , cnn , cnV }
+  }
+\ExplSyntaxOff
+\input{main}

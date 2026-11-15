@@ -22,19 +22,19 @@ The official metric is macro-F1 across the 19 classes. We used five participant-
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{figures/inertial_window.png}
+\includegraphics[width=\columnwidth]{figures/inertial_window.pdf}
 \caption{Measured acceleration across three axes for one supplied test window.}
 \label{fig:window}
 \end{figure}
 
 \section{Method}
-\begin{figure*}[tb]
+\begin{figure}[tb]
 \centering
-\includegraphics[width=.86\textwidth]{figures/pipeline.png}
+\includegraphics[width=\columnwidth]{figures/pipeline.pdf}
 \caption{Two branches produce activity probabilities and a participant-specific graph. The bounded update transfers the graph's effect onto the ensemble.}
 \label{fig:pipeline}
-\end{figure*}
-Figure~\ref{fig:pipeline} summarizes the inference pipeline. Figure~\ref{fig:window} illustrates the input to the inertial branch.
+\end{figure}
+Figure~\ref{fig:pipeline} summarizes the inference pipeline. The measured input in Figure~\ref{fig:window} illustrates the inertial branch.
 \subsection{Multimodal activity ensemble}
 The parent ensemble averages two branches with equal weights. The fold-matched branch uses neural activity evidence, self-training on unlabeled windows, and a LightGBM multiclass refiner that includes graph and chain summaries of nearby activity predictions. Two self-training runs per fold are decoded separately before averaging the ten posteriors. The second branch uses final models trained with all source participants and a chain-based activity refiner. The resulting ensemble serves as the fixed prediction base for subsequent graph changes.
 
@@ -78,7 +78,7 @@ The selected Kaggle file was \texttt{c173\_bidir\_consensus\_core.csv}, submissi
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{figures/benchmark.png}
+\includegraphics[width=\columnwidth]{figures/benchmark.pdf}
 \caption{Macro-F1 gain relative to the parent ensemble, shown separately for the source benchmark and public leaderboard.}
 \label{fig:scores}
 \end{figure}
