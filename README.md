@@ -1,6 +1,6 @@
 # Bidirectional window matching on WEAR
 
-Gaurav Vyas's solution to the [3rd WEAR Dataset Challenge at HASCA 2026](https://www.kaggle.com/competitions/3rd-wear-dataset-challenge-hasca-2026), with entrant-reported final Kaggle rank **3**.
+Gaurav Vyas's solution to the [3rd WEAR Dataset Challenge at HASCA 2026](https://www.kaggle.com/competitions/3rd-wear-dataset-challenge-hasca-2026), with an entrant-reported **rank of 3 on the final Kaggle private leaderboard**.
 
 - [Technical report](report/main.pdf) · [ACM LaTeX source](report/main.tex)
 - [Submitted predictions](results/final_submission.csv) · [Benchmark results](results/scores.csv)
