@@ -1,0 +1,7 @@
+configuration,submission,source_macro_f1,public_macro_f1
+Parent ensemble,c102,0.92988,0.93611
+Motion graph,c129,0.93041,0.93733
+One-to-one motion match,c157,0.93067,0.93748
+Forward ranker,c164,0.93092,0.93744
+Forward matched core,c172,0.93109,0.93773
+Bidirectional matched core,c173,0.93130,0.93821
