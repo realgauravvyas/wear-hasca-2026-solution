@@ -13,12 +13,7 @@ Recognizing outdoor exercise activities from shuffled one-second windows is diff
 A single second may capture a similar pose or motion phase in several activities. Although the test windows are shuffled, their observed signals can provide evidence that some windows are temporally adjacent or belong to the same exercise bout. We use that evidence to refine multimodal activity predictions. The main contribution is to rank candidate successors and predecessors independently and to enforce one-to-one assignments before propagating activity probabilities.
 
 % Pipeline overview and measured results are included as raster figures.
-\begin{figure*}[t]
-\centering
-\includegraphics[width=.86\textwidth]{figures/pipeline.png}
-\caption{Two branches produce activity probabilities and a participant-specific graph. The bounded update transfers the graph's effect onto the ensemble.}
-\label{fig:pipeline}
-\end{figure*}
+
 
 \section{Data and Evaluation}
 The WEAR dataset contains outdoor recordings from 22 source participants and defines 18 exercise labels and one null label \cite{wear}. The challenge test set has 12,234 windows from four additional participants \cite{challenge}. Each one-second window contains 50 triaxial acceleration samples from one sensor location and 15 supplied 768-dimensional VideoMAEv2-Base feature vectors. Participant and sensor identifiers are available. Graphs are built separately for each participant using unlabeled observations. Target labels, timestamps and true ordering are excluded from graph construction.
@@ -33,6 +28,12 @@ The official metric is macro-F1 across the 19 classes. We used five participant-
 \end{figure}
 
 \section{Method}
+\begin{figure*}[tb]
+\centering
+\includegraphics[width=.86\textwidth]{figures/pipeline.png}
+\caption{Two branches produce activity probabilities and a participant-specific graph. The bounded update transfers the graph's effect onto the ensemble.}
+\label{fig:pipeline}
+\end{figure*}
 Figure~\ref{fig:pipeline} summarizes the inference pipeline. Figure~\ref{fig:window} illustrates the input to the inertial branch.
 \subsection{Multimodal activity ensemble}
 The parent ensemble averages two branches with equal weights. The fold-matched branch uses neural activity evidence, self-training on unlabeled windows, and a LightGBM multiclass refiner that includes graph and chain summaries of nearby activity predictions. Two self-training runs per fold are decoded separately before averaging the ten posteriors. The second branch uses final models trained with all source participants and a chain-based activity refiner. The resulting ensemble serves as the fixed prediction base for subsequent graph changes.
